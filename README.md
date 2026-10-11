@@ -18,7 +18,12 @@ Each addon is a small, standalone WordPress plugin that extends Simple Membershi
 
 | Addon | Folder | Description | Documentation |
 |---|---|---|---|
+| After Login Redirection | [`swpm-after-login-redirection`](swpm-after-login-redirection/) | Send members to a specific page after they log in, based on their membership level. | [Usage guide](https://simple-membership-plugin.com/configure-login-redirection-members/) |
+| Custom Messages | [`swpm-custom-message`](swpm-custom-message/) | Customize the content protection messages the plugin shows to visitors and members. | [Usage guide](https://simple-membership-plugin.com/simple-membership-custom-messages-addon/) |
+| Form Shortcode | [`swpm-form-shortcode`](swpm-form-shortcode/) | Generate a registration form shortcode for a specific membership level, so you can place that form on any post or page. | [Usage guide](https://simple-membership-plugin.com/simple-membership-registration-form-shortcode-generator/) |
+| Misc Shortcodes | [`swpm-misc-shortcodes`](swpm-misc-shortcodes/) | A collection of miscellaneous shortcodes and small features for Simple Membership. | [Usage guide](https://simple-membership-plugin.com/simple-membership-miscellaneous-shortcodes-addon/) |
 | Partial Protection | [`swpm-partial-protection`](swpm-partial-protection/) | Protect or hide specific sections of a post or page, so you can show teaser content to everyone and keep the rest for members. | [Usage guide](https://simple-membership-plugin.com/apply-partial-section-protection/) |
+| Show Member Info | [`swpm-show-member-info`](swpm-show-member-info/) | Display member details (such as name, level or expiry) on your site using shortcodes. | [Usage guide](https://simple-membership-plugin.com/simple-membership-addon-show-member-info/) |
 
 ## Installation
 
