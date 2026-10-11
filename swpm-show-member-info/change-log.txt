@@ -1,0 +1,5 @@
+
+= 2.2 =
+* Added a message to the shortcode when the user is not logged in.
+* Added a message to the shortcode when a valid member record cannot be found for the given member ID.
+* PHP 8 compatibility related update.
