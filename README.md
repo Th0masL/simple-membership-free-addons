@@ -32,7 +32,7 @@ Each addon's `readme.txt` has its changelog and any extra setup notes.
 
 ## Support
 
-- For questions about using the plugin or its addons, read the [documentation](https://simple-membership-plugin.com/simple-membership-documentation/) or post on the [WordPress.org support forum](https://wordpress.org/support/plugin/simple-membership/).
+- For questions about using the plugin or its addons, read the [documentation](https://simple-membership-plugin.com/simple-membership-documentation/) or post on the [support forum](https://simple-membership-plugin.com/forums/forum/simple-membership-plugin/).
 - To report a bug in one of these addons, [open an issue](https://github.com/wp-insider/simple-membership-free-addons/issues) in this repository.
 
 ## Contributing
