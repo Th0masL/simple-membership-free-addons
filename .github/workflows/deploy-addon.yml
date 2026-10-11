@@ -1,0 +1,92 @@
+name: Deploy Free Addon
+
+# Zips the selected addon folder and uploads it to the website over FTPS.
+# Run it manually from the Actions tab: Deploy addon -> Run workflow -> pick the addon.
+
+on:
+  workflow_dispatch:
+    inputs:
+      addon:
+        description: Addon to deploy
+        required: true
+        type: choice
+        options:
+          - swpm-after-login-redirection
+          - swpm-custom-message
+          - swpm-form-shortcode
+          - swpm-misc-shortcodes
+          - swpm-partial-protection
+          - swpm-show-member-info
+
+# The job only needs to read the repository.
+permissions:
+  contents: read
+
+# Never run two deploys at the same time.
+concurrency:
+  group: deploy-addon
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy ${{ inputs.addon }}
+    runs-on: ubuntu-latest
+    # The FTP secrets live in this environment (Settings -> Environments -> production),
+    # which is restricted to the main branch.
+    environment: production
+    env:
+      ADDON: ${{ inputs.addon }}
+      # FTP server IP, as shown in cPanel.
+      FTP_SERVER_IP: ${{ vars.FTP_SERVER_IP }}
+      # The name on the FTP server's TLS certificate. It doesn't resolve to FTP_SERVER_IP
+      # in public DNS, so the "Map certificate name" step below points it there.
+      FTP_HOST: ${{ vars.FTP_HOST }}
+      # Upload folder, relative to the FTP account's home folder.
+      # Use "/" if the FTP account is locked to the addons folder.
+      REMOTE_DIR: ${{ vars.FTP_REMOTE_DIR }}
+
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Create zip file
+        run: |
+          test -d "$ADDON" || { echo "Folder '$ADDON' not found"; exit 1; }
+          mkdir -p dist
+          zip -r "dist/$ADDON.zip" "$ADDON" -x '*/.git*' '*/.DS_Store'
+          ls -l dist
+
+      - name: Install lftp
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+
+      # Connect to the server IP while still checking the certificate against its real name.
+      # (The upload step uses IPv4 only, so this entry is the only address it can use.)
+      - name: Map certificate name to server IP
+        run: |
+          [[ "$FTP_SERVER_IP" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]] || { echo "FTP_SERVER_IP is not a valid IPv4 address"; exit 1; }
+          [[ "$FTP_HOST" =~ ^[A-Za-z0-9.-]+$ ]] || { echo "FTP_HOST is not a valid hostname"; exit 1; }
+          echo "$FTP_SERVER_IP $FTP_HOST" | sudo tee -a /etc/hosts
+
+      - name: Upload over FTPS
+        env:
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          # lftp reads the password from this variable (--env-password),
+          # so it never appears on a command line or in the log.
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -c "
+            set dns:order inet
+            set ftp:ssl-force true
+            set ftp:ssl-protect-data true
+            set ssl:verify-certificate true
+            set net:max-retries 2
+            set net:timeout 30
+            open --env-password -u '$FTP_USERNAME' '$FTP_HOST'
+            cd '$REMOTE_DIR'
+            put 'dist/$ADDON.zip'
+            cls -l '$ADDON.zip'
+          "
