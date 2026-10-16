@@ -129,8 +129,9 @@ class SWPM_Partial_Protect_Shortcode_Output{
 		 * "visible_to" attribute, or attributes added with the "shortcode_atts_swpm_protected" filter).
 		 *
 		 * Return true to show the content, false to hide it, or null (default) to let this add-on decide as usual.
-		 * When the content is hidden, the restricted message is the one set with $output->set_message() (none by
-		 * default); set $output->sc_attrs['do_not_show_protected_msg'] = true to hide the content silently.
+		 * When the content is hidden, the restricted message is the one set with $output->set_message() (a generic
+		 * "no permission" message if none is set); set $output->sc_attrs['do_not_show_protected_msg'] = true to hide
+		 * the content silently.
 		 *
 		 * @param bool|null                           $visibility null, or the decision of a previous callback.
 		 * @param array                               $sc_attrs   The shortcode attributes.
@@ -140,6 +141,12 @@ class SWPM_Partial_Protect_Shortcode_Output{
 		$custom_visibility = apply_filters( 'swpm_pp_custom_visibility', null, $this->sc_attrs, $this );
 		if ( null !== $custom_visibility ) {
 			$this->set_visibility( (bool) $custom_visibility );
+			if ( ! $custom_visibility && empty( $this->message ) ) {
+				// The callback hid the content without setting a message. Use the generic one so we don't output an empty message box.
+				$message = __( "You do not have permission to view this content.", "simple-membership" );
+				$message = apply_filters('swpm_pp_output_when_no_access', $message);
+				$this->set_message( $message );
+			}
 			return;
 		}
 

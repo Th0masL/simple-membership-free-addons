@@ -4,7 +4,7 @@ Donate link: https://simple-membership-plugin.com/
 Tags: membership, protection, restrict, partial, section
 Requires at least: 6.0
 Tested up to: 6.8
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPLv2 or later
 
 Simple Membership Addon to apply partial or section protection to your posts or pages
@@ -31,6 +31,10 @@ None
 None
 
 == Changelog ==
+
+= 2.2 =
+* Added a new filter 'swpm_pp_custom_visibility' that lets other plugins decide the visibility of the protected content with their own conditions. Thanks to Th0masL for the contribution.
+* Custom shortcode attributes can now be added using the standard 'shortcode_atts_swpm_protected' filter.
 
 = 2.1 =
 * Some of the default partial content protection messages can be customized using the Custom Messages addon.
