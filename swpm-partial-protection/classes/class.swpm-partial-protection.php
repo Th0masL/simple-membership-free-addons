@@ -25,7 +25,7 @@ class SwpmPartialProtection {
 			'do_not_show_protected_msg' => false,
 			'format_protected_msg' => false,
 			'show_login_link' => false,
-		), $attrs);
+		), $attrs, 'swpm_protected');
 
 		$attrs['do_not_show_protected_msg'] = ($attrs['do_not_show_protected_msg'] == 1 ? true : false);
 		$attrs['show_login_link'] = ($attrs['show_login_link'] == 1 ? true : false);

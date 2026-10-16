@@ -125,6 +125,25 @@ class SWPM_Partial_Protect_Shortcode_Output{
 	 */
 	public function prepare_sc_output() {
 		/**
+		 * Lets other plugins decide the visibility with their own conditions (for example their own values of the
+		 * "visible_to" attribute, or attributes added with the "shortcode_atts_swpm_protected" filter).
+		 *
+		 * Return true to show the content, false to hide it, or null (default) to let this add-on decide as usual.
+		 * When the content is hidden, the restricted message is the one set with $output->set_message() (none by
+		 * default); set $output->sc_attrs['do_not_show_protected_msg'] = true to hide the content silently.
+		 *
+		 * @param bool|null                           $visibility null, or the decision of a previous callback.
+		 * @param array                               $sc_attrs   The shortcode attributes.
+		 * @param SWPM_Partial_Protect_Shortcode_Output $output   This object (has_for_permission(), has_not_for_permission(),
+		 *                                                        has_member_id_permission(), $auth, ...).
+		 */
+		$custom_visibility = apply_filters( 'swpm_pp_custom_visibility', null, $this->sc_attrs, $this );
+		if ( null !== $custom_visibility ) {
+			$this->set_visibility( (bool) $custom_visibility );
+			return;
+		}
+
+		/**
 		 * If the visitor is not-logged-in and if visibility set to 'not_logged_in_users_only', then
 		 * show the content to anyone who is not logged in!
 		 */
