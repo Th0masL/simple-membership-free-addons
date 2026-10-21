@@ -79,8 +79,10 @@ function swpm_auto_username_settings_save() {
 	$settings->save();
 }
 
+// Always a fresh placeholder (the field is hidden and the real username is set on submit). Never reuse the submitted
+// value: when a registration fails, it can hold the login of the existing WordPress user that owns the email address.
 function swpm_auto_username_placeholder( $user_name ) {
-	return empty( $user_name ) ? swpm_auto_username_generate() : $user_name;
+	return swpm_auto_username_generate();
 }
 
 function swpm_auto_username_hide_row( $attributes ) {
@@ -91,9 +93,10 @@ function swpm_auto_username_login_label( $label ) {
 	return __( 'Email', 'simple-membership' );
 }
 
+// Core escapes the returned value (views/loggedin.php), so return the email unescaped.
 function swpm_auto_username_logged_in_name( $user_name ) {
 	$email = SwpmAuth::get_instance()->get( 'email' );
-	return empty( $email ) ? $user_name : esc_html( $email );
+	return empty( $email ) ? $user_name : $email;
 }
 
 // The [swpm_mini_login] shortcode: show the email address instead of the username.
