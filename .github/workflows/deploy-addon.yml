@@ -2,6 +2,11 @@ name: Deploy Free Addon
 
 # Zips the selected addon folder and uploads it to the website over FTPS.
 # Run it manually from the Actions tab: Deploy addon -> Run workflow -> pick the addon.
+#
+# Addons can sit in a group folder in this repo (e.g. 01.CAPTCHA-related-addons-grp/swpm-recaptcha).
+# The group is only for organizing the repo: the zip is still named after the addon folder
+# (swpm-recaptcha.zip), has the addon folder at its top, and goes to the same server folder.
+# So addon folder names must be unique across groups.
 
 on:
   workflow_dispatch:
@@ -17,6 +22,10 @@ on:
           - swpm-misc-shortcodes
           - swpm-partial-protection
           - swpm-show-member-info
+          - 01.CAPTCHA-related-addons-grp/swpm-cloudflare-turnstile
+          - 01.CAPTCHA-related-addons-grp/swpm-recaptcha
+          - 01.CAPTCHA-related-addons-grp/swpm-recaptcha-enterprise
+          - 01.CAPTCHA-related-addons-grp/swpm-recaptcha-v3
 
 # The job only needs to read the repository.
 permissions:
@@ -54,9 +63,15 @@ jobs:
       - name: Create zip file
         run: |
           test -d "$ADDON" || { echo "Folder '$ADDON' not found"; exit 1; }
+          # The addon's own folder name (without any group folder), e.g. swpm-recaptcha.
+          NAME="$(basename "$ADDON")"
+          echo "NAME=$NAME" >> "$GITHUB_ENV"
           mkdir -p dist
-          zip -r "dist/$ADDON.zip" "$ADDON" -x '*/.git*' '*/.DS_Store'
+          # Zip from the parent folder, so the zip's top folder is the addon folder itself (what WordPress installs).
+          (cd "$(dirname "$ADDON")" && zip -r "$GITHUB_WORKSPACE/dist/$NAME.zip" "$NAME" -x '*/.git*' '*/.DS_Store')
           ls -l dist
+          # Show the top of the zip, to check the folder structure in the log.
+          unzip -l "dist/$NAME.zip" | head -n 6
 
       - name: Install lftp
         run: |
@@ -87,6 +102,6 @@ jobs:
             set net:timeout 30
             open --env-password -u '$FTP_USERNAME' '$FTP_HOST'
             cd '$REMOTE_DIR'
-            put 'dist/$ADDON.zip'
-            cls -l '$ADDON.zip'
+            put 'dist/$NAME.zip'
+            cls -l '$NAME.zip'
           "
