@@ -105,7 +105,8 @@ class SwpmCaptcha {
 	//Initialize captcha object            
 	$reCaptcha = new \ReCaptcha\ReCaptcha( $secret );
 
-	$resp = $reCaptcha->verify( $_REQUEST[ "g-recaptcha-response" ], $_SERVER[ "REMOTE_ADDR" ] );
+	$captcha_response = isset( $_REQUEST[ "g-recaptcha-response" ] ) ? sanitize_text_field( $_REQUEST[ "g-recaptcha-response" ] ) : '';
+	$resp = $reCaptcha->verify( $captcha_response, $_SERVER[ "REMOTE_ADDR" ] );
 	if ( $resp->isSuccess() ) {//valid reCAPTCHA response
 	    $output = '';
             SwpmLog::log_simple_debug("[reCAPTCHA Addon] Captcha validated successfully!", true);
@@ -150,7 +151,8 @@ class SwpmCaptcha {
 	//Initialize captcha object            
 	$reCaptcha = new \ReCaptcha\ReCaptcha( $secret );
 
-	$resp = $reCaptcha->verify( $_REQUEST[ "g-recaptcha-response" ], $_SERVER[ "REMOTE_ADDR" ] );
+	$captcha_response = isset( $_REQUEST[ "g-recaptcha-response" ] ) ? sanitize_text_field( $_REQUEST[ "g-recaptcha-response" ] ) : '';
+	$resp = $reCaptcha->verify( $captcha_response, $_SERVER[ "REMOTE_ADDR" ] );
 	if ( $resp->isSuccess() ) {//valid reCAPTCHA response
 	    $output = '';
             SwpmLog::log_simple_debug("[reCAPTCHA Addon] Login captcha validated successfully!", true);
@@ -187,7 +189,8 @@ class SwpmCaptcha {
 	//Initialize captcha object            
 	$reCaptcha = new \ReCaptcha\ReCaptcha( $secret );
 
-	$resp = $reCaptcha->verify( $_REQUEST[ "g-recaptcha-response" ], $_SERVER[ "REMOTE_ADDR" ] );
+	$captcha_response = isset( $_REQUEST[ "g-recaptcha-response" ] ) ? sanitize_text_field( $_REQUEST[ "g-recaptcha-response" ] ) : '';
+	$resp = $reCaptcha->verify( $captcha_response, $_SERVER[ "REMOTE_ADDR" ] );
 	if ( $resp->isSuccess() ) {//valid reCAPTCHA response
 	    $output = '';
             SwpmLog::log_simple_debug("[reCAPTCHA Addon] Password reset captcha validated successfully!", true);
