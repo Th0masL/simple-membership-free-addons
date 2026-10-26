@@ -25,10 +25,21 @@ Each addon is a small, standalone WordPress plugin that extends Simple Membershi
 | Partial Protection | [`swpm-partial-protection`](swpm-partial-protection/) | Protect or hide specific sections of a post or page, so you can show teaser content to everyone and keep the rest for members. | [Usage guide](https://simple-membership-plugin.com/apply-partial-section-protection/) |
 | Show Member Info | [`swpm-show-member-info`](swpm-show-member-info/) | Display member details (such as name, level or expiry) on your site using shortcodes. | [Usage guide](https://simple-membership-plugin.com/simple-membership-addon-show-member-info/) |
 
+### CAPTCHA Addons
+
+These are in the [`01.CAPTCHA-related-addons-grp`](01.CAPTCHA-related-addons-grp/) folder. Each one adds spam protection to the registration, login and password reset forms.
+
+| Addon | Folder | Description | Documentation |
+|---|---|---|---|
+| Cloudflare Turnstile | [`swpm-cloudflare-turnstile`](01.CAPTCHA-related-addons-grp/swpm-cloudflare-turnstile/) | Add Cloudflare Turnstile to the membership forms. | [Usage guide](https://simple-membership-plugin.com/simple-membership-and-cloudflare-turnstile-integration-addon/) |
+| Google reCAPTCHA | [`swpm-recaptcha`](01.CAPTCHA-related-addons-grp/swpm-recaptcha/) | Add Google reCAPTCHA (v2, "I'm not a robot" checkbox) to the membership forms. | [Usage guide](https://simple-membership-plugin.com/simple-membership-and-google-recaptcha-integration/) |
+| Google reCAPTCHA Enterprise | [`swpm-recaptcha-enterprise`](01.CAPTCHA-related-addons-grp/swpm-recaptcha-enterprise/) | Add Google reCAPTCHA Enterprise to the membership forms. | [Usage guide](https://simple-membership-plugin.com/simple-membership-google-recaptcha-enterprise-option/) |
+| Google reCAPTCHA v3 | [`swpm-recaptcha-v3`](01.CAPTCHA-related-addons-grp/swpm-recaptcha-v3/) | Add invisible, score-based Google reCAPTCHA v3 to the membership forms. | [Usage guide](https://simple-membership-plugin.com/simple-membership-google-recaptcha-v3-integration/) |
+
 ## Installation
 
 1. Download this repository as a ZIP (**Code → Download ZIP**) and extract it.
-2. Pick the addon folder you want (for example, `swpm-partial-protection`) and compress that folder on its own into a ZIP file.
+2. Pick the addon folder you want (for example, `swpm-partial-protection`) and compress that folder on its own into a ZIP file. Some addons are inside a group folder (for example, `01.CAPTCHA-related-addons-grp/swpm-recaptcha`): zip only the addon folder, not the group folder.
 3. In your WordPress admin, go to **Plugins → Add New → Upload Plugin**, upload the ZIP and activate it.
 
    Or upload the addon folder to `/wp-content/plugins/` over FTP, then activate it from the **Plugins** menu.
