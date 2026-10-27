@@ -1,0 +1,4 @@
+#lockdown_specific_url_settings_fields.disabled {
+  opacity: 0.5; /* Faded appearance */
+  pointer-events: none; /* Optional: Prevent interactions */
+}

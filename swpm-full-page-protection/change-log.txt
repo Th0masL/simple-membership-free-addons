@@ -1,0 +1,17 @@
+= WIP =
+* Content protected message rendering issue fixed.
+
+= 2.2 =
+* Site-wide/Domain-level protection option added.
+* Added rtrim to the URL pattern lockdown feature for better compatibility.
+* Lockdown page header/footer rendering added for block themes.
+* Added hook for customizing the lockdown message.
+
+= 2.1 =
+* Version number formatting issue fixed.
+
+= 2.0 =
+* Added a new feature for automatic redirection when a visitor accesses a restricted page
+
+= 1.9 =
+* PHP 8.0 compatibility.
