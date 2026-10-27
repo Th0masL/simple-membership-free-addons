@@ -4,7 +4,7 @@ Donate link: https://simple-membership-plugin.com/
 Tags: members, membership, recaptcha, captcha,
 Requires at least: 6.0
 Tested up to: 6.7
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 
 Simple Membership Google reCAPTCHA Enterprise addon allows you to add Google reCAPTCHA Enterprise to your membership registration and login forms.
@@ -29,6 +29,9 @@ None
 None
 
 == Changelog ==
+
+= 1.6 =
+* The reCAPTCHA response token is now sanitized before it is verified.
 
 = 1.5 =
 * Version number formatting issue fixed.

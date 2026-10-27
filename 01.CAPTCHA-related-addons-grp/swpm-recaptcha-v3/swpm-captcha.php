@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Membership Google reCAPTCHA V3
-Version: 1.3
+Version: 1.4
 Plugin URI: https://simple-membership-plugin.com/simple-membership-and-google-recaptcha-integration/
 Author: smp7, wp.insider
 Author URI: https://simple-membership-plugin.com/
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit; //Exit if accessed directly
 }
 
-define('SWPM_CAPTCHA_V3_VER', '1.3');
+define('SWPM_CAPTCHA_V3_VER', '1.4');
 define('SWPM_CAPTCHA_V3_SITE_HOME_URL', home_url());
 define('SWPM_CAPTCHA_V3_PATH', dirname(__FILE__) . '/');
 define('SWPM_CAPTCHA_V3_URL', plugins_url('', __FILE__));

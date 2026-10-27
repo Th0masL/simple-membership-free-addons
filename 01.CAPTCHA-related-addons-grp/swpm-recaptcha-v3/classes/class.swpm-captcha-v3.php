@@ -161,7 +161,7 @@ class SwpmCaptchaV3
         //Initialize captcha object
         $reCaptcha = new \ReCaptcha\ReCaptcha($secret);
 
-	    $token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? $_POST["g-recaptcha-response"] : '';
+	    $token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? sanitize_text_field($_POST["g-recaptcha-response"]) : '';
 
         $resp = $reCaptcha->verify($token, $_SERVER[ "REMOTE_ADDR" ]);
 
@@ -231,7 +231,7 @@ class SwpmCaptchaV3
         //Initialize captcha object
         $reCaptcha = new \ReCaptcha\ReCaptcha($secret);
 
-	    $token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? $_POST["g-recaptcha-response"] : '';
+	    $token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? sanitize_text_field($_POST["g-recaptcha-response"]) : '';
 
         $resp = $reCaptcha->verify($token, $_SERVER[ "REMOTE_ADDR" ]);
         if ($resp->isSuccess()) { //valid reCAPTCHA response
@@ -292,7 +292,7 @@ class SwpmCaptchaV3
         // Initialize captcha object.
         $reCaptcha = new \ReCaptcha\ReCaptcha($secret);
 
-	    $token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? $_POST["g-recaptcha-response"] : '';
+	    $token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? sanitize_text_field($_POST["g-recaptcha-response"]) : '';
 
         $resp = $reCaptcha->verify($token, $_SERVER[ "REMOTE_ADDR" ]);
         if ($resp->isSuccess()) { //valid reCAPTCHA response

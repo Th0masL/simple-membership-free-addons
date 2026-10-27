@@ -143,7 +143,7 @@ class SwpmCaptcha {
 
 		require_once SWPM_CAPTCHA_PATH . "lib/google-recaptcha-enterprise-custom-lib.php";
 
-		$token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? $_POST["g-recaptcha-response"] : '';
+		$token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? sanitize_text_field($_POST["g-recaptcha-response"]) : '';
 
 		if ( swpm_validate_recaptcha_enterprise(
 			$this->project_id,
@@ -193,7 +193,7 @@ class SwpmCaptcha {
 
 		require_once SWPM_CAPTCHA_PATH . "lib/google-recaptcha-enterprise-custom-lib.php";
 
-        $token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? $_POST["g-recaptcha-response"] : '';
+        $token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? sanitize_text_field($_POST["g-recaptcha-response"]) : '';
 
 		if ( swpm_validate_recaptcha_enterprise(
 			$this->project_id,
@@ -234,7 +234,7 @@ class SwpmCaptcha {
 
 		require_once SWPM_CAPTCHA_PATH . "lib/google-recaptcha-enterprise-custom-lib.php";
 
-		$token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? $_POST["g-recaptcha-response"] : '';
+		$token = isset($_POST["g-recaptcha-response"]) && !empty($_POST["g-recaptcha-response"]) ? sanitize_text_field($_POST["g-recaptcha-response"]) : '';
 
 		if ( swpm_validate_recaptcha_enterprise(
 			$this->project_id,
